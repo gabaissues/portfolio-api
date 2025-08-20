@@ -1,0 +1,33 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id          String      @unique @default(uuid())
+  name        String
+  description String
+  type        ProjectType
+
+  name_en        String
+  description_en String
+
+  url       String
+  tags      String[]
+  videoUrl  String
+  imagesUrl String[]
+  updatedAt DateTime @default(now())
+  createdAt DateTime @default(now())
+
+  @@map("Projects")
+}
+
+enum ProjectType {
+  dev
+  ui
+}
